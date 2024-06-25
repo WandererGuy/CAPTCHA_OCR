@@ -6,10 +6,9 @@ Step 1 : git clone this repo  <br>
 Step 2: <br>
 prepare 3 different environments for FASTAPI-SERVER, YOLO-SERVER, OCR-SERVER 
 for FASTAPI:
-  -
-
+  - conda create --name env_fastapi python==3.9
 for YOLO:
-  -
+  - conda create --name env_yolo python==3.9
 
 for OCR-SERVER:
   - conda create --name env_ocr python==3.9
