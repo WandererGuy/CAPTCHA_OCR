@@ -7,7 +7,7 @@ Step 2: prepare 3 different environments for FASTAPI-SERVER, YOLO-SERVER, OCR-SE
 for FASTAPI:
   - conda create --name env_fastapi python==3.9
   - conda activate env_fast_api
-    then you can install fastapi, uvicorn, pillow, requests, uuid, logging, io (should check for conda package before check for pip install)
+    then you can install fastapi, uvicorn, pillow, requests, uuid, logging, io (should check for conda package before check for pip install) <br>
 for YOLO:
   - conda create --name env_yolo python==3.9
   - conda activate env_yolo
@@ -18,7 +18,7 @@ for OCR-SERVER:
   - conda activate env_ocr
   - conda install pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=11.3 -c pytorch (this torch suits my machine , which support max CUDA 11.3)
   - pip install vietocr==0.3.12
-    then you can install fastapi,uvicorn, pillow
+    then you can install fastapi,uvicorn, pillow <br>
 
 Step 3: fix path for env in 3 init.sh file in FASTAPI-SERVER, YOLO-SERVER, OCR-SERVER to match your created env<br>
 
