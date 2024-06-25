@@ -1,0 +1,9 @@
+*.png
+*.jpg 
+
+YOLO-SERVER/env_yolo
+OCR-SERVER/env_ocr
+FASTAPI-SERVER/env_fastapi
+DATABASE 
+
+OCR-SERVER/weights/vgg_transformer.pth
