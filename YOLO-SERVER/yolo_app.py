@@ -15,7 +15,20 @@ config = configparser.ConfigParser()
 # Read the configuration file
 config.read('config.ini')
 database_path = config['DEFAULT']['database_path'] 
+ocr_service_address = config['DEFAULT']['ocr_service_address']
+yolo_service_address = config['DEFAULT']['yolo_service_address']
+yolo_service_port = int(config['DEFAULT']['yolo_service_port'])
+ocr_service_port = int(config['DEFAULT']['ocr_service_port'])
+fastapi_service_port = int(config['DEFAULT']['fastapi_service_port'])
+host_ip = config['DEFAULT']['host_ip']
 
+database_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), database_path)
+
+def load_model_yolo_once():
+    print ('************* loading YOLO model... *************')
+    global model
+    model = load_model()
+    return {"message": "YOLO model loaded"}
 
 @app.get("/")
 async def root():
@@ -36,8 +49,10 @@ async def detect(request: Request, data: Optional[dict] = None):
         return {"message": "YOLO service is ready"}
     if request.method == "POST":
         file_path = data['file']
+        print (file_path)
         try:
-            print ('model 2', model)
+            if model != None :
+                print ('model existed')
             save_folder = process_image(file_path, model)
             print ("YOLO SERVER DONE DETECTION")
             
@@ -46,16 +61,18 @@ async def detect(request: Request, data: Optional[dict] = None):
 
         return {"message": "Detection completed", "save_folder": save_folder}
 
+@app.on_event("startup")
+async def startup_event():
+    load_model_yolo_once()
+    print ('loaded model')
+
+
+
 def main():
     print ('INITIALIZING YOLO SERVER')
-    try:
-        os.makedirs(f'{database_path}/yolo_output', exist_ok=True)
-        print(f"Directory {database_path}/yolo_output created successfully")
-    except Exception as e:
-        print(f"Error creating directory: {e}")
-
-    os.makedirs(f'{database_path}/yolo_output', exist_ok = True)
-    uvicorn.run("yolo_app:app", host="0.0.0.0", port=8001, reload=True)
+    os.makedirs(f'{database_path}/yolo_output', exist_ok=True)
+    print(f"Directory {database_path}/yolo_output created successfully")
+    uvicorn.run("yolo_app:app", host=host_ip, port=yolo_service_port, reload=True)
 
 if __name__ == "__main__":
     main()

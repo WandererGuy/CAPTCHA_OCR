@@ -22,9 +22,9 @@ def ocr(detect_results_path, detector):
 
 
 def load_model():
-    print ('************* loading OCR model... *************')
+    print ('************* start loading OCR model... *************')
     config = Cfg.load_config_from_name('vgg_transformer')
-    config['weights'] = '/home/ai-ubuntu/hddnew/Manh/CAPTCHA_OCR/OCR-SERVER/weights/vgg_transformer.pth'
+    config['weights'] = 'weights/vgg_transformer.pth'
     config['cnn']['pretrained']=False
     config['device'] = 'cuda:0'
     detector = Predictor(config)

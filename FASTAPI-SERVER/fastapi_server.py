@@ -19,14 +19,16 @@ config = configparser.ConfigParser()
 # Read the configuration file
 config.read('config.ini')
 database_path = config['DEFAULT']['database_path'] 
-
-
+ocr_service_address = config['DEFAULT']['ocr_service_address']
+yolo_service_address = config['DEFAULT']['yolo_service_address']
+yolo_service_port = int(config['DEFAULT']['yolo_service_port'])
+ocr_service_port = int(config['DEFAULT']['ocr_service_port'])
+fastapi_service_port = int(config['DEFAULT']['fastapi_service_port'])
+host_ip = config['DEFAULT']['host_ip']
 app = FastAPI()
 
-ocr_service_address = '0.0.0.0'
-yolo_service_address = '0.0.0.0'
-yolo_service_port = 8001
-ocr_service_port = 8002
+database_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), database_path)
+
 save_directory = f'{database_path}/yolo_input'
 # Endpoint to receive an image and start the processing pipeline
 @app.get("/")
@@ -77,6 +79,8 @@ async def process_image(file: UploadFile = File(...)):
     # Save the image file
     img = Image.open(io.BytesIO(request_object_content))
     # Save the image to a file
+    img = img.convert('RGB')
+
     img.save(file_path)
     print ('*********** GOT IMAGE ***********')
 
@@ -96,7 +100,7 @@ async def process_image(file: UploadFile = File(...)):
 
 def main():
     print ('INITIALIZING FASTAPI SERVER')
-    uvicorn.run("fastapi_server:app", host="10.0.68.103", port=8004, reload=True)
+    uvicorn.run("fastapi_server:app", host=host_ip, port=fastapi_service_port, reload=True)
 
 if __name__ == "__main__":
     main()

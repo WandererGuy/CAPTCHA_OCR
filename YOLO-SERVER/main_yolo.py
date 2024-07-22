@@ -14,6 +14,8 @@ config = configparser.ConfigParser()
 # Read the configuration file
 config.read('config.ini')
 database_path = config['DEFAULT']['database_path'] 
+database_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), database_path)
+
 def load_model():
     print ('************* loading YOLO model... *************')
 
@@ -25,9 +27,8 @@ def load_model():
 def get_bbox(filepath, model_detect):
     print (f"YOLO SERVER Processing image {filepath} ")
     save_folder = f'{database_path}/yolo_output/{os.path.basename(filepath)}'
-    os.mkdir(save_folder)
+    os.makedirs(save_folder, exist_ok=True)
     img = cv2.imread(filepath)
-    print ('model_detect: ', model_detect)
     model_detect = YOLO("weights/best_detect.pt")
     print ('model detect YOLLOOOOOO: ', model_detect)
     result = model_detect(filepath, conf = 0.542)  # return a list of Results objects
