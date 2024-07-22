@@ -8,7 +8,7 @@ Step 2: prepare 3 different environments for FASTAPI-SERVER, YOLO-SERVER, OCR-SE
 ```
 conda create -p D:\ManhT04\CAPTCHA_OCR\FASTAPI-SERVER\env_fast_api python==3.9
 conda activate D:\ManhT04\CAPTCHA_OCR\FASTAPI-SERVER\env_fastapi
-pip install fastapi uvicorn pillow requests uuid=
+pip install fastapi uvicorn pillow requests uuid
 ```
 
 ### YOLO 
@@ -28,14 +28,12 @@ pip install fastapi uvicorn pillow
 pip install vietocr==0.3.12
 ```
 <br>
-Step 3: fix path for env in 3 init.sh file in FASTAPI-SERVER, YOLO-SERVER, OCR-SERVER to match your created env<br>
-
 Small note: <br>
 You send http POST request (which is the image you want to get OCR) to app in FASTAPI_server (see FASTAPI-SERVER/fastapi_server.py to understand) <br>
 Inside, FASTAPI_server send image to YOLO server . After that YOLO send results to OCR server. <br>
 After that, OCR send final result to FASTAPI server. Finally FASTAPI server send back message to you , which is the OCR output.<br> 
 
-Step 4: turn on each server , each activated on 1 terminal, so you need 3 terminals , then run app script of it <br>
+Step 3: turn on each server , each activated on 1 terminal, so you need 3 terminals , then run app script of it <br>
 
 Method:<br>
 Yolov8 outputs separate character as images, then VietOCR will OCR that image and give output <br>
