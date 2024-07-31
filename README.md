@@ -1,3 +1,8 @@
+
+
+
+
+
 ## description 
 this is a automnate text-based Captcha solver (yolov8 trained on captcha collected from https://hashes.com/en/decrypt/hash)
 
