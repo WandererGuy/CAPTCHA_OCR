@@ -11,9 +11,9 @@ Step 1 : git clone this repo  <br>
 Step 2: prepare 3 different environments for FASTAPI-SERVER, YOLO-SERVER, OCR-SERVER <br>
 ### FASTAPI 
 ```
-conda create -p D:\ManhT04\CAPTCHA_OCR\FASTAPI-SERVER\env_fast_api python==3.9
+conda create -p D:\ManhT04\CAPTCHA_OCR\FASTAPI-SERVER\env_fastapi python==3.9
 conda activate D:\ManhT04\CAPTCHA_OCR\FASTAPI-SERVER\env_fastapi
-pip install fastapi uvicorn pillow requests uuid
+pip install fastapi uvicorn pillow requests uuid python-multipart
 ```
 
 ### YOLO 
@@ -31,6 +31,7 @@ conda activate D:\ManhT04\CAPTCHA_OCR\OCR-SERVER\env_ocr
 conda install pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=11.3 -c pytorch
 pip install fastapi uvicorn pillow
 pip install vietocr==0.3.12
+pip install Pillow==9.5.0
 ```
 <br>
 Small note: <br>

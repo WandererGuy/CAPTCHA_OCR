@@ -16,8 +16,11 @@ import configparser
 # Create a ConfigParser object
 config = configparser.ConfigParser()
 
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+config_path = os.path.join(parent_dir, 'config.ini')
 # Read the configuration file
-config.read('config.ini')
+config.read(config_path)
 database_path = config['DEFAULT']['database_path'] 
 ocr_service_address = config['DEFAULT']['ocr_service_address']
 yolo_service_address = config['DEFAULT']['yolo_service_address']
@@ -100,7 +103,7 @@ async def process_image(file: UploadFile = File(...)):
 
 def main():
     print ('INITIALIZING FASTAPI SERVER')
-    uvicorn.run("fastapi_server:app", host=host_ip, port=fastapi_service_port, reload=True)
+    uvicorn.run(app, host=host_ip, port=fastapi_service_port, reload=False)
 
 if __name__ == "__main__":
     main()

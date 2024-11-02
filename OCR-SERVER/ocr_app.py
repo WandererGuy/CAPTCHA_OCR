@@ -8,8 +8,11 @@ import traceback
 # Create a ConfigParser object
 config = configparser.ConfigParser()
 
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+config_path = os.path.join(parent_dir, 'config.ini')
 # Read the configuration file
-config.read('config.ini')
+config.read(config_path)
 database_path = config['DEFAULT']['database_path'] 
 ocr_service_address = config['DEFAULT']['ocr_service_address']
 yolo_service_address = config['DEFAULT']['yolo_service_address']
@@ -61,7 +64,7 @@ async def startup_event():
     print ('loaded model')
 
 def main():
-    uvicorn.run("ocr_app:app", host=host_ip, port=ocr_service_port, reload = True)
+    uvicorn.run(app, host=host_ip, port=ocr_service_port, reload = False)
 
 if __name__ == "__main__":
     main()

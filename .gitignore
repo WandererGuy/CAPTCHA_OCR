@@ -7,3 +7,7 @@ FASTAPI-SERVER/env_fastapi
 DATABASE 
 
 OCR-SERVER/weights/vgg_transformer.pth
+# But do not ignore them in the samples folder
+!samples/
+!samples/**/*.png
+!samples/**/*.jpg

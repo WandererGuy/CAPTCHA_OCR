@@ -10,9 +10,11 @@ import configparser
 
 # Create a ConfigParser object
 config = configparser.ConfigParser()
-
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+config_path = os.path.join(parent_dir, 'config.ini')
 # Read the configuration file
-config.read('config.ini')
+config.read(config_path)
 database_path = config['DEFAULT']['database_path'] 
 database_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), database_path)
 
